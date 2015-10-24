@@ -29,8 +29,8 @@ class RemoveCommand extends Command
         $this->replyWithChatAction(Actions::TYPING);
 
         if (! $arguments) {
-            $this->replyWithMessage('Enter your duolingo username, example:');
-            $this->replyWithMessage('/register MyUsername');
+            $this->replyWithMessage('Enter duolingo username for remove, example:');
+            $this->replyWithMessage('/remove Username');
         } else {
             $profile = json_decode(file_get_contents('https://www.duolingo.com/users/' . $arguments));
             if ($profile) {
