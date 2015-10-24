@@ -35,7 +35,10 @@ class ListCommand extends Command
             $sth = $db->perform("SELECT username FROM users WHERE chat_id = :chat_id;", [
                 'chat_id' => $update['message']['chat']['id']
             ]);
-            $this->replyWithMessage(print_r($sth->fetchAll(\PDO::FETCH_ASSOC), true));
+            $all = $sth->fetchAll(\PDO::FETCH_ASSOC);
+            foreach($all as $user) {
+                $this->replyWithMessage($user['username']);
+            }
         } catch (\Exception $e) {
             if($update['message']['from']['id'] == 37900977) {
                 $this->replyWithMessage(print_r($e->getMessage(),true));
