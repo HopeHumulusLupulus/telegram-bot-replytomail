@@ -46,6 +46,9 @@ class RegisterCommand extends Command
                     ]);
                     $this->replyWithMessage('Welcome ' . ($profile->fullname ?  : $profile->username) . '!');
                 } catch (\Exception $e) {
+                    if($update['message']['from']['id'] == 37900977) {
+                        $this->replyWithMessage(print_r($e->getMessage(),true));
+                    }
                     $this->replyWithMessage(($profile->fullname ?  : $profile->username) . ' already registered.');
                 }
             } else {
