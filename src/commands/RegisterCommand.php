@@ -35,7 +35,7 @@ class RegisterCommand extends Command
             $profile = json_decode(file_get_contents('https://www.duolingo.com/users/' . $arguments));
             if ($profile) {
                 $update = $this->telegram->getWebhookUpdates()->all();
-                $this->replyWithMessage(print_r($update['message'],true));
+                $this->replyWithMessage(print_r($update['message']['chat'],true));
 return;
                 $db = DB::getInstance();
                 try {
