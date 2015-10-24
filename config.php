@@ -1,2 +1,2 @@
 <?php
-$config['token'] = get_env('TOKEN');
+$config['token'] = getenv('TOKEN');
