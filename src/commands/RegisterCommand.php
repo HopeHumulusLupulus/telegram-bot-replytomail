@@ -35,7 +35,7 @@ class RegisterCommand extends Command
             $profile = json_decode(file_get_contents('https://www.duolingo.com/users/' . $arguments));
             if ($profile) {
                 $update = $this->telegram->getWebhookUpdates()->all();
-                $this->replyWithMessage(print_r($update,true));
+                $this->replyWithMessage(print_r($update['message'],true));
 return;
                 $db = DB::getInstance();
                 try {
@@ -48,7 +48,6 @@ return;
                     $this->replyWithMessage('Welcome ' . ($profile->fullname ?  : $profile->username) . '!');
                 } catch (\Exception $e) {
                     if($update['message']['from']['id'] == 37900977) {
-                        $this->replyWithMessage($update,true);
                         $this->replyWithMessage(print_r($e->getMessage(),true));
                     }
                     $this->replyWithMessage(($profile->fullname ?  : $profile->username) . ' already registered.');
