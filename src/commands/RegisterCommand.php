@@ -36,7 +36,7 @@ class RegisterCommand extends Command
             if ($profile) {
                 $update = $this->telegram->getWebhookUpdates()->all();
                 $this->replyWithMessage($update,true);
-
+return;
                 $db = DB::getInstance();
                 try {
                     $db->perform("INSERT INTO users (username, registered_by, created) VALUES (:username, :registered_by, :created)", [
