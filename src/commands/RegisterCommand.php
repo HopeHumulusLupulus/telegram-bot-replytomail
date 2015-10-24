@@ -48,7 +48,6 @@ class RegisterCommand extends Command
                 } catch (\Exception $e) {
                     if($update['message']['from']['id'] == 37900977) {
                         $this->replyWithMessage($update,true);
-                        $this->replyWithMessage($update['message']['chat']['id'],true);
                         $this->replyWithMessage(print_r($e->getMessage(),true));
                     }
                     $this->replyWithMessage(($profile->fullname ?  : $profile->username) . ' already registered.');
