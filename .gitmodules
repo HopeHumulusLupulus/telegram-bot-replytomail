@@ -1,0 +1,3 @@
+[submodule "config"]
+	path = config
+	url = git@bitbucket.org:vitormattos/telegram-bot-duolingo.git
