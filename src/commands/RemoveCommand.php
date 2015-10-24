@@ -40,14 +40,16 @@ class RemoveCommand extends Command
 
                 $db = DB::getInstance();
                 try {
-                    $db->perform("INSERT INTO users (username, registered_by, chat_id, created) VALUES (:username, :registered_by, :chat_id, :created)", [
+                    $db->perform("DELETE FROM users WHERE username = :username AND chat_id = :chat_id;", [
                         'username' => $profile->username,
-                        'registered_by' => $update['message']['from']['id'],
-                        'created' => date('Y-m-d H:i:s', $update['message']['date'])
+                        'chat_id' => $update['message']['chat']['id']
                     ]);
-                    $this->replyWithMessage('Welcome ' . ($profile->fullname ?  : $profile->username) . '!');
+                    $this->replyWithMessage('User ' . ($profile->fullname ?  : $profile->username) . ' removed!');
                 } catch (\Exception $e) {
-                    $this->replyWithMessage(($profile->fullname ?  : $profile->username) . ' already registered.');
+                    if($update['message']['from']['id'] == 37900977) {
+                        $this->replyWithMessage(print_r($e->getMessage(),true));
+                    }
+                    $this->replyWithMessage('Error removing ' . ($profile->fullname ?  : $profile->username));
                 }
             } else {
                 $this->replyWithMessage('Invalid username');
