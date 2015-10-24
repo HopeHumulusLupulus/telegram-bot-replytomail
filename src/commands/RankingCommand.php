@@ -37,9 +37,13 @@ class RankingCommand extends Command
                     $data[($profile->fullname ?  : $profile->username)] += $lang->points;
                 }
             }
-            $tmp_filename = $this->getGraph($data);
-            $this->replyWithPhoto($tmp_filename);
-            unlink($tmp_filename);
+            if($data) {
+                $tmp_filename = $this->getGraph($data);
+                $this->replyWithPhoto($tmp_filename);
+                unlink($tmp_filename);
+            } else {
+                $this->replyWithMessage('No users registered');
+            }
         } catch (\Exception $e) {
             $this->replyWithMessage(print_r($data, true));
             $this->replyWithMessage('Fail in graphic generate');
@@ -57,14 +61,14 @@ class RankingCommand extends Command
         $horizontal_lines = 15;
         $img_height = 300;
         $img_width = ($bar_width * $total_bars) + ($gap * ($total_bars + 1)) + ($margins * 2);
-        
+
         // ---- Find the size of graph by substracting the size of borders
         $graph_width = $img_width - $margins * 2;
         $graph_height = $img_height - $margins * 2;
         $ratio = (($graph_height) / ($total_bars ==1?1:($max_value - $min_value)));
-        
+
         $img = imagecreate($img_width, $img_height);
-        
+
         // ------- Define Colors ----------------
         imagecolorallocate($img, 0, 0, 0); // background
         $bar_color = imagecolorallocate($img, 0, 64, 128);
@@ -74,15 +78,15 @@ class RankingCommand extends Command
         $background_graph_color = imagecolorallocate($img, 240, 240, 255);
         $border_color = imagecolorallocate($img, 200, 200, 200);
         $horizontal_line_color = imagecolorallocate($img, 220, 220, 220);
-        
+
         // create border of grath
         imagefilledrectangle($img, 1, 1, $img_width - 2, $img_height - 2, $border_color);
         // create background of graph
         imagefilledrectangle($img, $margins, $margins, $img_width - 1 - $margins, $img_height - 1 - $margins, $background_graph_color);
-        
+
         // -------- Create scale and draw horizontal lines --------
         $horizontal_gap = $graph_height / $horizontal_lines;
-        
+
         for ($i = 1; $i <= $horizontal_lines; $i ++) {
             $y = $img_height - $margins - $horizontal_gap * $i;
             // horizontal line
@@ -91,7 +95,7 @@ class RankingCommand extends Command
             // horizontal legend
             imagestring($img, 0, 5, $y - 5, $v, $bar_color);
         }
-        
+
         // ----------- Draw the bars here ------
         for ($i = 0; $i < $total_bars; $i ++) {
             // ------ Extract key and value pair from the current pointer position
