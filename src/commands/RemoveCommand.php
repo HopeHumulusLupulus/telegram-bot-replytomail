@@ -27,9 +27,7 @@ class RemoveCommand extends Command
     {
         // This will update the chat status to typing...
         $this->replyWithChatAction(Actions::TYPING);
-        $this->replyWithMessage(print_r($this->telegram->getWebhookUpdates()->all(), true));
 
-        return;
         if (! $arguments) {
             $this->replyWithMessage('Enter your duolingo username, example:');
             $this->replyWithMessage('/register MyUsername');
