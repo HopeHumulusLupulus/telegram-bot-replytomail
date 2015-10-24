@@ -7,7 +7,7 @@ return [
     'environments' => [
         'default_migration_table' => 'phinxlog',
         'default_database' => ltrim($dbopts["path"],'/'),
-        'production' => [
+        ltrim($dbopts["path"],'/') => [
             'adapter' => 'pgsql',
             'host' => $dbopts["host"],
             'name' => ltrim($dbopts["path"],'/'),
