@@ -10,8 +10,8 @@ $telegram->addCommands([
     Telegram\Bot\Commands\HelpCommand::class,
     Commands\StartCommand::class,
     Commands\RegisterCommand::class,
+    Commands\RemoveCommand::class,
     Commands\RankingCommand::class
-    
 ]);
 
 $telegram->commandsHandler(true);
