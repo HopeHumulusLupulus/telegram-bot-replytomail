@@ -40,7 +40,7 @@ class RemoveCommand extends Command
 
                 $db = DB::getInstance();
                 try {
-                    $db->perform("INSERT INTO users (username, registered_by, created) VALUES (:username, :registered_by, :created)", [
+                    $db->perform("INSERT INTO users (username, registered_by, chat_id, created) VALUES (:username, :registered_by, :chat_id, :created)", [
                         'username' => $profile->username,
                         'registered_by' => $update['message']['from']['id'],
                         'created' => date('Y-m-d H:i:s', $update['message']['date'])
