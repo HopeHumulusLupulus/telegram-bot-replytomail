@@ -1,5 +1,6 @@
 <?php
 use Telegram\Bot\Api;
+use Commands;
 require 'vendor/autoload.php';
 require 'config.php';
 
@@ -11,7 +12,8 @@ $telegram->addCommands([
     Commands\StartCommand::class,
     Commands\RegisterCommand::class,
     Commands\RemoveCommand::class,
-    Commands\RankingCommand::class
+    Commands\RankingCommand::class,
+    Commands\ListCommand::class
 ]);
 
 $telegram->commandsHandler(true);
