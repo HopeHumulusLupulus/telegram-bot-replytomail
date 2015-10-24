@@ -6,9 +6,8 @@ require 'config.php';
 if(isset($_GET['url'])) {
     $url = $_GET['url'];
 } else {
-    $url = substr($url,0,strrpos($_SERVER['HTTP_HOST'],"/")+1);
+    $url = $_SERVER['HTTP_HOST'];
 }
-var_dump($_SERVER);
 if(filter_var('https://'.$url, FILTER_VALIDATE_URL) == false) {
     echo 'Invalid url for get certificate: '.$url;
     die();
