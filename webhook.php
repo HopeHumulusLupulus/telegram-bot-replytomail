@@ -9,7 +9,7 @@ if(isset($_GET['url'])) {
     $url = substr($url,0,strrpos($_SERVER['HTTP_HOST'],"/")+1);
 }
 if(filter_var('https://'.$url, FILTER_VALIDATE_URL) == false) {
-    echo 'Invalid url for get certificate';
+    echo 'Invalid url for get certificate: '.$url;
     die();
 }
 $g = stream_context_create (array("ssl" => array(
