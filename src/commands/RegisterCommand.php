@@ -35,11 +35,9 @@ class RegisterCommand extends Command
             $profile = json_decode(file_get_contents('https://www.duolingo.com/users/' . $arguments));
             if ($profile) {
                 $update = $this->telegram->getWebhookUpdates()->all();
-                $this->replyWithMessage(print_r($update['message']['chat'],true));
-return;
                 $db = DB::getInstance();
                 try {
-                    $db->perform("INSERT INTO users (username, registered_by, created) VALUES (:username, :registered_by, :created)", [
+                    $db->perform("INSERT INTO users (username, registered_by, chat_id, created) VALUES (:username, :registered_by, :chat_id, :created)", [
                         'username' => $profile->username,
                         'registered_by' => $update['message']['from']['id'],
                         'chat_id' => $update['message']['chat']['id'],
