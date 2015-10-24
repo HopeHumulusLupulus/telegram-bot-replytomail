@@ -3,7 +3,11 @@ use Telegram\Bot\Api;
 require 'vendor/autoload.php';
 require 'config.php';
 
-$url = $_GET['url'];
+if(isset($_GET['url'])) {
+    $url = $_GET['url'];
+} else {
+    $url = substr($url,0,strrpos($_SERVER['HTTP_HOST'],"/")+1);
+}
 if(filter_var('https://'.$url, FILTER_VALIDATE_URL) == false) {
     echo 'Invalid url for get certificate';
     die();
@@ -16,7 +20,7 @@ $g = stream_context_create (array("ssl" => array(
 $r = stream_socket_client("ssl://{$url}:443", $errno, $errstr, 30,
     STREAM_CLIENT_CONNECT, $g);
 if(!$r) {
-    echo 'Domain dont exists';
+    echo 'Domain dont exists or dont is over ssl';
     die();
 }
 $cont = stream_context_get_params($r);
