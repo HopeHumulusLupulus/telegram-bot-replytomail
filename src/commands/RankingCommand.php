@@ -27,9 +27,12 @@ class RankingCommand extends Command
     {
         // This will update the chat status to typing...
         $this->replyWithChatAction(Actions::TYPING);
+        $update = $this->telegram->getWebhookUpdates()->all();
         try {
             $db = DB::getInstance();
-            $stmt = $db->perform("SELECT * FROM users;");
+            $stmt = $db->perform("SELECT * FROM users WHERE chat_id = :chat_id;", [
+                'chat_id' => $update['message']['chat']['id']
+            ]);
             while ($user = $stmt->fetch(\PDO::FETCH_ASSOC)) {
                 $profile = json_decode(file_get_contents('https://www.duolingo.com/users/' . $user['username']));
                 $data[($profile->fullname ?  : $profile->username)] = 0;
