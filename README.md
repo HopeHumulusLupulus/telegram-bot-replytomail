@@ -3,8 +3,8 @@ You need a domain with ssl (https) for use this bot
 
 ### Installation
 ```shell
-git clone --recursive https://github.com/vitormattos/telegram-bot-duolingo.git
-cd telegram-bot-duolingo
+git clone --recursive https://github.com/HopeHumulusLupulus/telegram-bot-replytomail.git
+cd telegram-bot-replytomail
 composer install
 ```
 
