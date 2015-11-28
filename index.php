@@ -8,12 +8,7 @@ $telegram = new Api($config['token']);
 
 // Standalone
 $telegram->addCommands([
-    Telegram\Bot\Commands\HelpCommand::class,
-    Commands\StartCommand::class,
-    Commands\RegisterCommand::class,
-    Commands\RemoveCommand::class,
-    Commands\RankingCommand::class,
-    Commands\ListCommand::class
+    Telegram\Bot\Commands\HelpCommand::class
 ]);
 
 $telegram->commandsHandler(true);

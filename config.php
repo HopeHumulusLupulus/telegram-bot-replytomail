@@ -1,2 +1,2 @@
 <?php
-$config['token'] = getenv('TOKEN');
+$config['token'] = getenv('TOKEN_REPLYTOMAILBOT');
